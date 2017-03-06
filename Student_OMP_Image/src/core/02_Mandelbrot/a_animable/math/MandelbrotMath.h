@@ -31,10 +31,21 @@ class MandelbrotMath{
 	void colorXY(uchar4* ptrColor, float x, float y, float t){
 	    float z = f(x, y, t);
 
-	    calibreur.calibrer(z);
-	    float hue01 = z;
+	    if(z == -1){
+		ptrColor->x = 0;
+		ptrColor->y = 0;
+		ptrColor->z = 0;
 
-	    ColorTools::HSB_TO_RVB(hue01, ptrColor);
+	    }else{
+
+
+		calibreur.calibrer(z);
+		float hue01 = z;
+
+		ColorTools::HSB_TO_RVB(hue01, ptrColor);
+	    }
+
+
 	    ptrColor->w = 255;
 	}
 
@@ -45,15 +56,20 @@ class MandelbrotMath{
 	    float aCopy = 0;
 	    int k = 0;
 
-	    while(k < t || a*a + b*b < 4){//Conditions inverses que dans le PDF
-		aCopy = a;
-		a = (a*a - b*b)+x;
-		b = 2*aCopy*b+y;
-		k++;
+	    while(k < t){//Conditions inverses que dans le PDF -> k<t
+		if(a*a+b*b > 4){
+		    return -1;
+		}
+		else{
+		    aCopy = a;
+		    a = (a*a - b*b)+x;
+		    b = 2*aCopy*b+y;
+		    k++;
+		}
+
 	    }
 
-	    //Vérifier le return
-	    return a+b;//(y*y + x*x)/n;
+	    return k;
 	}
 
 	uint n;

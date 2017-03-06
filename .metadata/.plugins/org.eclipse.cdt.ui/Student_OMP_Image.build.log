@@ -1,4 +1,4 @@
-10:49:37 **** Incremental Build of configuration GCC_parallel for project Student_OMP_Image ****
+11:15:41 **** Incremental Build of configuration GCC_parallel for project Student_OMP_Image ****
 cbicc gcc jall 
 
 --------------------------------------------------------
@@ -230,7 +230,60 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 [CBI] -> Compilation parallel (32 threads)
 
-make[1]: Nothing to be done for `compilelink'.
+[Student_OMP_Image_gcc_x86_64] -> g++ compiling .cpp : src/core/02_Mandelbrot/a_animable/Mandelbrot.cpp
+[Student_OMP_Image_gcc_x86_64] -> g++ compiling .cpp : src/core/02_Mandelbrot/b_provider/MandelbrotProvider.cpp
+
+[CBI] -> Linking to   : /tmp/ramdrive/arc2/Targets/Student_OMP_Image/bin/Student_OMP_Image_gcc_x86_64.run
+
+[CBI] -> Library Link :
+[CBI] ->              : -lBilatTools_CPP_301_004_gcc_x86_64
+[CBI] ->              : -lBilatTools_Image_301_004_gcc_x86_64
+[CBI] ->              : -lBilatTools_Image_OpenCV_301_004_gcc_x86_64
+[CBI] ->              : -lBilatTools_OMP_301_004_gcc_x86_64
+[CBI] ->              : -lBilatTools_OpenCV_301_004_gcc_x86_64
+[CBI] ->              : -lBilat_Fenetrage_Displayable_301_gcc_x86_64
+[CBI] ->              : -lBilat_Fenetrage_Displayable_GL_301_gcc_x86_64
+[CBI] ->              : -lBilat_Fenetrage_FreeGlut_Tools_301_gcc_x86_64
+[CBI] ->              : -lBilat_Image_FreeGlut_301_gcc_x86_64
+[CBI] ->              : -lBilat_Image_GL_301_gcc_x86_64
+[CBI] ->              : -lBilat_OpenGL_Tools_301_gcc_x86_64
+[CBI] ->              : -lGL
+[CBI] ->              : -lGLEW
+[CBI] ->              : -lGLU
+[CBI] ->              : -lglut
+[CBI] ->              : -lgomp
+[CBI] ->              : -lopencv_calib3d_gcc484
+[CBI] ->              : -lopencv_core_gcc484
+[CBI] ->              : -lopencv_features2d_gcc484
+[CBI] ->              : -lopencv_flann_gcc484
+[CBI] ->              : -lopencv_highgui_gcc484
+[CBI] ->              : -lopencv_imgcodecs_gcc484
+[CBI] ->              : -lopencv_imgproc_gcc484
+[CBI] ->              : -lopencv_ml_gcc484
+[CBI] ->              : -lopencv_objdetect_gcc484
+[CBI] ->              : -lopencv_photo_gcc484
+[CBI] ->              : -lopencv_shape_gcc484
+[CBI] ->              : -lopencv_stitching_gcc484
+[CBI] ->              : -lopencv_superres_gcc484
+[CBI] ->              : -lopencv_video_gcc484
+[CBI] ->              : -lopencv_videoio_gcc484
+[CBI] ->              : -lopencv_videostab_gcc484
+
+==================================================================================
+[CBI] -> Target Name  : Student_OMP_Image_gcc_x86_64
+[CBI] -> Location     : /tmp/ramdrive/arc2/Targets/Student_OMP_Image/bin/Student_OMP_Image_gcc_x86_64.run
+[CBI] -> Deploy 	  : ../RELEASE/bin
+[CBI] ->
+[CBI] -> Type	 	  : EXE
+[CBI] -> Arch	 	  : x86_64
+[CBI] -> OS	 		  : Linux
+[CBI] -> User	 	  : arc2
+[CBI] ->
+[CBI] -> Compilateur  : g++
+[CBI] -> Task	      : End Compiling-Linking !
+[CBI] -> Time		  : 1 (s)
+==================================================================================
+
 
 [CBI] -> Deploying    : ../RELEASE/bin/Student_OMP_Image_gcc_x86_64.run
 
@@ -240,5 +293,5 @@ make[1]: Nothing to be done for `compilelink'.
 [CBI] -> Student_OMP_Image_gcc_x86_64 : End ALL!
 
 
-10:49:37 Build Finished (took 576ms)
+11:15:42 Build Finished (took 1s.128ms)
 
