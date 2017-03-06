@@ -37,8 +37,6 @@ class MandelbrotMath{
 		ptrColor->z = 0;
 
 	    }else{
-
-
 		calibreur.calibrer(z);
 		float hue01 = z;
 
@@ -56,8 +54,8 @@ class MandelbrotMath{
 	    float aCopy = 0;
 	    int k = 0;
 
-	    while(k < t){//Conditions inverses que dans le PDF -> k<t
-		if(a*a+b*b > 4){
+	    while(a*a+b*b < 4){//Conditions inverses que dans le PDF
+		if(k > t){
 		    return -1;
 		}
 		else{
