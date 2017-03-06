@@ -29,7 +29,7 @@ using namespace cpu;
 Animable_I<uchar4>* MandelbrotProvider::createAnimable(void){
     DomaineMath domaineMath = DomaineMath(-2.1, -1.3, 0.8, 1.3);
 
-    float dt = 1;//OSEF ca change la precision de lanimation
+    float dt = 1;//OSEF ca change la precision de l'animation
     int n = 0;
 
     int dw = 16 * 80;

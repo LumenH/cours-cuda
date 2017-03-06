@@ -45,7 +45,15 @@ class MandelbrotMath{
 	    float aCopy = 0;
 	    int k = 0;
 
-	    return (y*y + x*x)/n;
+	    while(k < t || a*a + b*b < 4){//Conditions inverses que dans le PDF
+		aCopy = a;
+		a = (a*a - b*b)+x;
+		b = 2*aCopy*b+y;
+		k++;
+	    }
+
+	    //Vérifier le return
+	    return a+b;//(y*y + x*x)/n;
 	}
 
 	uint n;

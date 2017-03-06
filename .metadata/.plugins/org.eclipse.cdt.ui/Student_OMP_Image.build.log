@@ -1,4 +1,4 @@
-12:47:38 **** Incremental Build of configuration GCC_parallel for project Student_OMP_Image ****
+10:49:37 **** Incremental Build of configuration GCC_parallel for project Student_OMP_Image ****
 cbicc gcc jall 
 
 --------------------------------------------------------
@@ -77,13 +77,13 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ==================================================================================
 [CBI] -> Target Name  : Student_OMP_Image_gcc_x86_64
 [CBI] ->
-[CBI] -> Build     	  : /tmp/ramdrive/arc16/Targets/Student_OMP_Image/bin/Student_OMP_Image_gcc_x86_64.run
+[CBI] -> Build     	  : /tmp/ramdrive/arc2/Targets/Student_OMP_Image/bin/Student_OMP_Image_gcc_x86_64.run
 [CBI] -> Deploy       : ../RELEASE/bin
 [CBI] ->
 [CBI] -> Type	 	  : EXE
 [CBI] -> Arch	 	  : x86_64
 [CBI] -> OS	 		  : Linux
-[CBI] -> User	 	  : arc16
+[CBI] -> User	 	  : arc2
 [CBI] ->
 [CBI] -> Task		  : Compiling-Linking
 ==================================================================================
@@ -107,6 +107,9 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 [CBI] ->              : src/core/01_Rippling/a_animable/
 [CBI] ->              : src/core/01_Rippling/a_animable/math/
 [CBI] ->              : src/core/01_Rippling/b_provider/
+[CBI] ->              : src/core/02_Mandelbrot/a_animable/
+[CBI] ->              : src/core/02_Mandelbrot/a_animable/math/
+[CBI] ->              : src/core/02_Mandelbrot/b_provider/
 
 [CBI] -> LIB_PATH (auto detect):
 
@@ -227,17 +230,15 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 [CBI] -> Compilation parallel (32 threads)
 
-[Student_OMP_Image_gcc_x86_64] -> g++ compiling .cpp : src/core/01_Rippling/a_animable/Rippling.cpp
-In file included from src/core/01_Rippling/a_animable/Rippling.cpp:1:0:
-src/core/01_Rippling/a_animable/math/RipplingMath.h: In member function ‘void RipplingMath::f(int, int, float, uchar*)’:
-src/core/01_Rippling/a_animable/math/RipplingMath.h:61:52: error: invalid operands of types ‘void’ and ‘int’ to binary ‘operator/’
-   float numerateur = cosf((dij(i, j, &ptrResult) / 10) - (t/7));
-                                                    ^
-src/core/01_Rippling/a_animable/math/RipplingMath.h:62:46: error: invalid operands of types ‘void’ and ‘int’ to binary ‘operator/’
-   float denominateur = dij(i, j, &ptrResult)/10 + 1;
-                                              ^
-make[1]: *** [/tmp/ramdrive/arc16/Targets/Student_OMP_Image/obj/Rippling.o] Error 1
-make: *** [jall] Error 2
+make[1]: Nothing to be done for `compilelink'.
 
-12:47:39 Build Finished (took 807ms)
+[CBI] -> Deploying    : ../RELEASE/bin/Student_OMP_Image_gcc_x86_64.run
+
+[CBI] -> Symlink Project Inc
+[CBI] -> To update code completion : ctrl-shift-s   or   gui/index/rebuild
+
+[CBI] -> Student_OMP_Image_gcc_x86_64 : End ALL!
+
+
+10:49:37 Build Finished (took 576ms)
 

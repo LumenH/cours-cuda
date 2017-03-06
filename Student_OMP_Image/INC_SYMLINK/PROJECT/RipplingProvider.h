@@ -1,1 +1,1 @@
-/home/arc16/CUDA/toStudent/code/WCuda/Student_OMP_Image/src/core/01_Rippling/b_provider/RipplingProvider.h
+/home/arc2/Documents/cours-cuda/Student_OMP_Image//src/core/01_Rippling/b_provider/RipplingProvider.h
