@@ -46,7 +46,15 @@ Animable_I<uchar4>* RipplingProvider::createAnimable()
     int mp = Device::getMPCount();
     int coreMP = Device::getCoreCountMP();
 
-    Grid grid;  // TODO definissez une grille cuda (dg, db)
+    //dim3 dg = dim3(mp, 2, 1);  		// disons, a optimiser selon le gpu, peut drastiqument ameliorer ou baisser les performances
+    dim3 db = dim3(coreMP, 2, 1);
+
+    dim3 dg = dim3(10, 10, 1);  		// disons, a optimiser selon le gpu, peut drastiqument ameliorer ou baisser les performances
+    //dim3 db = dim3(50, 50, 1);
+
+    Grid grid(dg,db);  // TODO definissez une grille cuda (dg, db)
+
+
 
     return new Rippling(grid,dw, dh, dt);
     }

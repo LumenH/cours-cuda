@@ -69,6 +69,10 @@ class RipplingMath
 	    // 			Step1 : Delete le contenur de ce fichier (si!),
 	    // 			Step2 : Copie-past le contenu de RipplingMath.h de omp,
 	    // 			Step3 : Ajouter __device__  devant methode et constructeur!
+	    float ptrResult = dij(i, j);
+	    float numerateur = cosf((ptrResult / 10) - (t/7));
+	    float denominateur =  ptrResult / 10 + 1;
+	    *ptrLevelGris = 128 + 127 * (numerateur/denominateur);
 	    }
 
 	__device__
@@ -76,6 +80,9 @@ class RipplingMath
 	    {
 	    //TODO cf fonction math pdf
 	    // return ...
+	    float fi = i - dim2;
+	    float fj = j - dim2;
+	    return sqrtf(fi*fi + fj*fj);
 	    }
 
 	/*--------------------------------------*\

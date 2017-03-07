@@ -71,6 +71,7 @@ void Rippling::process(uchar4* ptrDevPixels, uint w, uint h, const DomaineMath& 
 
     // TODO lancer le kernel avec <<<dg,db>>>
     // le kernel est importer ci-dessus (ligne 19)
+    rippling<<<dg,db>>>(ptrDevPixels, w, h, t);
 
     Device::lastCudaError("rippling rgba uchar4 (after kernel)"); // facultatif, for debug only, remove for release
     }
