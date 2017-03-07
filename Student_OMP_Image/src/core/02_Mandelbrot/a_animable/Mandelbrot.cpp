@@ -30,8 +30,8 @@ using std::endl;
  |*		Public			*|
  \*-------------------------------------*/
 
-Mandelbrot::Mandelbrot(uint w, uint h, float dt, uint n, const DomaineMath& domaineMath) :
-	Animable_I<uchar4>(w, h, "Damier_OMP_rgba_uchar4",domaineMath), variateurAnimation(Interval<float>(30, 100), dt)
+Mandelbrot::Mandelbrot(uint w, uint h, int dt, uint n, const DomaineMath& domaineMath) :
+	Animable_I<uchar4>(w, h, "Damier_OMP_rgba_uchar4",domaineMath), variateurAnimation(Interval<int>(30, n), dt)
 {
 	this->n = n;
 	this->t = 0;

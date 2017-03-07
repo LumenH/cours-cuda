@@ -18,7 +18,7 @@ using namespace cpu;
 
 class Mandelbrot : public Animable_I<uchar4>{
     public:
-	Mandelbrot(uint w, uint h, float dt, uint n, const DomaineMath& domaineMath);
+	Mandelbrot(uint w, uint h, int dt, uint n, const DomaineMath& domaineMath);
 	virtual ~Mandelbrot(void);
 
 	/*-------------------------*\
@@ -46,7 +46,7 @@ class Mandelbrot : public Animable_I<uchar4>{
 	uint n;
 
 	// Tools
-	Variateur<float> variateurAnimation;
+	Variateur<int> variateurAnimation;
 
 };
 

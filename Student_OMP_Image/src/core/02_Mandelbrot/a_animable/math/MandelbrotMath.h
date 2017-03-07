@@ -20,7 +20,7 @@ using std::cout;
  \*-------------------------------------*/
 class MandelbrotMath{
     public:
-	MandelbrotMath(uint n) : calibreur(Interval<float>(1, 10), Interval<float>(0, 1)){ //Check premier intervalle in pdf
+	MandelbrotMath(uint n) : calibreur(Interval<float>(1, n), Interval<float>(0, 1)){ //Check premier intervalle in pdf
 	    this->n = n;
 	}
 
@@ -55,15 +55,15 @@ class MandelbrotMath{
 	    int k = 0;
 
 	    while(a*a+b*b < 4){//Conditions inverses que dans le PDF
-		if(k > t){
-		    return -1;
-		}
-		else{
-		    aCopy = a;
-		    a = (a*a - b*b)+x;
-		    b = 2*aCopy*b+y;
-		    k++;
-		}
+	    	if(k > t){
+	    		return -1;
+	    	}
+	    	else{
+	    		aCopy = a;
+		    	a = (a*a - b*b)+x;
+		    	b = 2*aCopy*b+y;
+		    	k++;
+	    	}
 
 	    }
 
