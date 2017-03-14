@@ -1,0 +1,26 @@
+#include "indice2D.h"
+#include "cudaTools.h"
+#include "Device.h"
+
+#include "IndiceTools_GPU.h"
+#include "MandelbrotMath.h"
+
+using namespace gpu;
+
+__global__ void mandelbrot(uchar4* ptrDevPixels, uint w, uint h, float t);
+
+__global__ void mandelbrot(uchar4* ptrDevPixels, uint w, uint h, float t){
+    MandelbrotMath mandelbrotMath(n);
+
+    const int WH = w*h;
+    const int NB_THREAD = OmpTools::getNbThread();
+    const int TID = OmpTools::getTid();
+
+    int i, j;
+    int s = TID;
+    while(s < WH){
+        IndiceTools::toIJ(s, w, &i, &j);
+        workPixel(&ptrTabPixels[s], i, j, domaineMath, &mandelbrotMath);
+        s += NB_THREAD;
+    }
+}
