@@ -48,9 +48,15 @@ int main(int argc, char** argv)
     // Server Cuda1: in [0,5]	(6 Devices)
     // Server Cuda2: in [0,3]	(4 Devices)
     // Server Cuda3: in [0,2]	(2 Devices)
+<<<<<<< HEAD
     int DEVICE_ID = 0;
 
     LaunchMode launchMode = LaunchMode::IMAGE; // IMAGE  ANIMABLE  BARIVOX FORCEBRUT
+=======
+    int DEVICE_ID = 3;
+
+    LaunchMode launchMode = LaunchMode::ANIMABLE; // IMAGE  ANIMABLE  BARIVOX FORCEBRUT
+>>>>>>> 1e91cebe3b4b949c7e3d13a3e5f185d4131eae5d
     Settings settings(launchMode, DEVICE_ID, argc, argv);
 
     return use(settings);
@@ -97,8 +103,13 @@ int start(Settings& settings)
     {
     // print
 	{
+<<<<<<< HEAD
 	// Device::printAll();
 	Device::printAllSimple();
+=======
+	 Device::printAll();
+	//Device::printAllSimple();
+>>>>>>> 1e91cebe3b4b949c7e3d13a3e5f185d4131eae5d
 	Device::printCurrent();
 	//Device::print(option.getDeviceId());
 	}
