@@ -6,7 +6,7 @@
 #include "cudaTools.h"
 
 
-//#include "RipplingProvider.h"
+#include "RipplingProvider.h"
 #include "MandelbrotProvider.h"
 
 
@@ -54,7 +54,7 @@ int mainImage(Settings& settings)
     ImageOption zoomable(true);
     ImageOption nozoomable(false);
 
-    //Viewer<RipplingProvider> vague(nozoomable, 25, 25); // imageOption px py
+    Viewer<RipplingProvider> vague(nozoomable, 25, 25); // imageOption px py
     Viewer<MandelbrotProvider> mandelbrot(zoomable, 25, 25);
 
     // Common
