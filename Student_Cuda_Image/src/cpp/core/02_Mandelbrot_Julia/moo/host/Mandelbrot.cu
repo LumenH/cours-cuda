@@ -1,5 +1,6 @@
 #include "Mandelbrot.h"
 #include "MandelbrotMath.h"
+#include "DomaineMath_GPU.h"
 
 #include <iostream>
 #include <assert.h>
@@ -10,7 +11,7 @@ using std::endl;
 /*----------------------------------------------------------------------*\
  |*			Declaration 					*|
  \*---------------------------------------------------------------------*/
-extern __global__ void mandelbrot(uchar4* ptrDevPixels, uint w, uint h, float t);
+extern __global__ void mandelbrot(uchar4* ptrDevPixels, uint w, uint h, float t, const uint n, DomaineMath domaineMath);
 //extern __device__ void workPixel(uchar4* ptrColorIJ, int i, int j, const DomaineMath& domaineMath, MandelbrotMath* ptrMandelbrotMath);
 /*--------------------------------------*\
  |*		Public			*|
@@ -47,7 +48,7 @@ void Mandelbrot::animationStep(){
 void Mandelbrot::process(uchar4* ptrDevPixels, uint w, uint h, const DomaineMath& domaineMath){
     Device::lastCudaError("Mandelbrot before kernel");
 
-    mandelbrot<<<dg,db>>>(ptrDevPixels, w, h, t, n, domaineMath, );
+    mandelbrot<<<dg,db>>>(ptrDevPixels, w, h, t, n, domaineMath );
 
     Device::lastCudaError("Mandelbrot after kernel");
 }
