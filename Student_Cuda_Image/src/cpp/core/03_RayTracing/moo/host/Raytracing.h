@@ -20,7 +20,7 @@ class Raytracing: public Animable_I<uchar4>{
     private:
 	float dt;
 	dim3 dg, db;
-	int tabSphereLength;
+	int nbSphere;
 
 	size_t sizeOctet;
 	Sphere* ptrDevTabSphere;

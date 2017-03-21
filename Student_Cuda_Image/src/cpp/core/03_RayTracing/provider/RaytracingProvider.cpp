@@ -10,6 +10,7 @@ Animable_I<uchar4>* RaytracingProvider::createAnimable(){
     //Peut animation
     int dw = 16*60;
     int dh = 16*60;
+    float dt = 2.f * PI_FLOAT / 1000;
 
     int mp = Device::getMPCount();
     int coreMP = Device::getCoreCountMP();
@@ -19,6 +20,11 @@ Animable_I<uchar4>* RaytracingProvider::createAnimable(){
 
     Grid grid(dg, db);
 
-    return new Raytracing(grid, nbSphere, dw, dh);
+    return new Raytracing(grid, dw, dh, dt, nbSphere);
+}
+
+Image_I* RaytracingProvider::createImageGL(void){
+    ColorRGB_01 colorTexte(0,0,0);
+    return new ImageAnimable_RGBA_uchar4(createAnimable(), colorTexte);
 }
 

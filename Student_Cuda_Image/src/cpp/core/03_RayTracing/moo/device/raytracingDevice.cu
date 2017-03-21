@@ -2,10 +2,11 @@
 #include "Indice2D.h"
 
 #include "IndiceTools_GPU.h"
+#include "Sphere.h"
 
 using namespace gpu;
 
-__global__ void raytracing(uchar4* ptrDevPixels, uint w, uint h, float t, Sphere* ptrDevtabSphere, int tabSphereLentgth){
+__global__ void raytracing(uchar4* ptrDevPixels, uint w, uint h, float t, Sphere* ptrDevtabSphere, int nbSphere){
     const int NB_THREAD = Indice2D::nbThread();
     const int TID = Indice2D::tid();
     const int WH = w*h;
