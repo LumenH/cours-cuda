@@ -5,7 +5,7 @@
 #include "Grid.h"
 
 Animable_I<uchar4>* RaytracingProvider::createAnimable(){
-    int nbSphere = 25;
+    int nbSphere = 20;
 
     //Peut animation
     int dw = 16*60;
