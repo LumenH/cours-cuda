@@ -1,16 +1,8 @@
-#ifndef SRC_CPP_CORE_03_RAYTRACING_MOO_DEVICE_MATH_SPHERE_H_
-#define SRC_CPP_CORE_03_RAYTRACING_MOO_DEVICE_MATH_SPHERE_H_
+#pragma once
 
 #include "cudaTools.h"
 #include "MathTools.h"
 
-/*----------------------------------------------------------------------*\
- |*			Declaration 					*|
- \*---------------------------------------------------------------------*/
-
-/*--------------------------------------*\
- |*		Public			*|
- \*-------------------------------------*/
 class Sphere
 {
     public:
@@ -19,7 +11,7 @@ class Sphere
 	    // Inputs
 	    this->centre = centre;
 	    this->r = rayon;
-	    this->hue = hue;
+	    this->hueStart = hue;
 	    // Tools
 	    this->rCarre = rayon * rayon;
 	}
@@ -86,9 +78,3 @@ class Sphere
 	float rCarre;
 	float T; // usefull for animation
 };
-
-#endif 
-
-/*----------------------------------------------------------------------*\
- |*			End	 					*|
- \*---------------------------------------------------------------------*/
