@@ -22,29 +22,33 @@ class RaytracingMath{
 	    xySol.x = j;
 	    xySol.y = i;
 
+	    float hCarre = 0;
+	    float dz = 0;
+	    float brightness = 0;
+	    float hue = 0;
+	    float distance = 0;
+	    float nearestDistance = 100000;
 
-	    ptrColor->x = 0;
-	    ptrColor->y = 0;
-	    ptrColor->z = 0;
-	    ptrColor->w = 255;
 
 	    for(int k = 0; k < nbSphere; k++){
 		Sphere sphereK = ptrTabSphere[k];
-		float hCarre = sphereK.hCarre(xySol);
+		hCarre = sphereK.hCarre(xySol);
 
-		if(sphereK.isEnDessous(hCarre)){
-		    float hue = sphereK.getHueStart();
+		int blackOrColor = (int) sphereK.isEnDessous(hCarre);
 
-		    float dz = sphereK.dz(hCarre);
-		    float distance = sphereK.distance(dz);
-		    float brightness = sphereK.brightness(dz);
+		dz = sphereK.dz(hCarre);
+		distance = sphereK.distance(dz);
 
-		    ColorTools::HSB_TO_RVB(hue, 1, brightness, ptrColor);
-
-		    ptrColor->w = 255;
-
-		    k = nbSphere + 1;
+		if(distance * blackOrColor < nearestDistance * blackOrColor){
+		    nearestSphere = SphereK;
+		    nearestDistance = distance;
 		}
+
+		hCarre = nearestSphere.hCarre(xySol);
+		dz = nearestSphere.dz(hCarre);
+		brightness = nearestSphere.brightness(dz);
+		hue = nearestSphere.getHueStart() + nearestSphere.hue(t);
+		ColorTools::HSB_TO_RVB(hue, 1, brightness, ptrColor);
 	    }
 	}
 

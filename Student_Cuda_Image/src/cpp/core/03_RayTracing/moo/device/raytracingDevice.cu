@@ -2,7 +2,6 @@
 #include "Indice2D.h"
 
 #include "IndiceTools_GPU.h"
-#include "Sphere.h"
 #include "RaytracingMath.h"
 
 using namespace gpu;
@@ -15,9 +14,7 @@ __global__ void raytracing(uchar4* ptrDevPixels, uint w, uint h, float t, Sphere
     const int WH = w*h;
 
     int s = TID;
-    //int n = nbSphere;
     int i, j;
-    //float hcarree = 0;
 
     while(s < WH){
 	IndiceTools::toIJ(s, w, &i,  &j);
