@@ -14,6 +14,7 @@ class Sphere
 	    this->hueStart = hue;
 	    // Tools
 	    this->rCarre = rayon * rayon;
+	    this->T = asinf(2.f * hueStart - 1.f) - ((3.f * PI_FLOAT)/2.f);
 	}
 
 	/**
@@ -66,7 +67,7 @@ class Sphere
 	__device__
 	float hue(float t) // usefull for animation
 	{
-	    return 0.5f + 0.5f * sinf(t + T + 3 * PI_FLOAT / 2);
+	    return 0.5f + 0.5f * sinf(t + T + 3.f * PI_FLOAT / 2.f);
 	}
 
     private:

@@ -3,6 +3,9 @@
 
 #include "MathTools.h"
 #include "Grid.h"
+#include "ImageAnimable_GPU.h"
+
+using namespace gpu;
 
 Animable_I<uchar4>* RaytracingProvider::createAnimable(){
     int nbSphere = 20;
