@@ -27,7 +27,7 @@ Animable_I<uchar4>* RaytracingProvider::createAnimable(){
 }
 
 Image_I* RaytracingProvider::createImageGL(void){
-    ColorRGB_01 colorTexte(0,0,0);
+    ColorRGB_01 colorTexte(0,1,0);
     return new ImageAnimable_RGBA_uchar4(createAnimable(), colorTexte);
 }
 

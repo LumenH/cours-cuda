@@ -35,9 +35,9 @@ void Raytracing::toGM(Sphere* ptrTabSphere){
 }
 
 void Raytracing::process(uchar4* ptrDevPixels, uint w, uint h, const DomaineMath& domaineMath){
-    Device::lastCudaError("Before raytracing");
+    //Device::lastCudaError("Before raytracing");
     raytracing<<<dg, db>>>(ptrDevPixels, w, h, t, ptrDevTabSphere, nbSphere);
-    Device::lastCudaError("After raytracing");
+    //Device::lastCudaError("After raytracing");
 
     //Ajouter barriere synchro implicite
 }

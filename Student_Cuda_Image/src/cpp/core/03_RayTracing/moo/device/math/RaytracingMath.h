@@ -2,6 +2,7 @@
 
 #include <math.h>
 #include "MathTools.h"
+#include "Sphere.h"
 
 #include "Calibreur_GPU.h"
 #include "ColorTools_GPU.h"
@@ -29,6 +30,8 @@ class RaytracingMath{
 	    float distance = 0;
 	    float nearestDistance = 100000;
 
+	    Sphere nearestSphere = ptrTabSphere[0];
+
 
 	    for(int k = 0; k < nbSphere; k++){
 		Sphere sphereK = ptrTabSphere[k];
@@ -40,7 +43,7 @@ class RaytracingMath{
 		distance = sphereK.distance(dz);
 
 		if(distance * blackOrColor < nearestDistance * blackOrColor){
-		    nearestSphere = SphereK;
+		    nearestSphere = sphereK;
 		    nearestDistance = distance;
 		}
 
