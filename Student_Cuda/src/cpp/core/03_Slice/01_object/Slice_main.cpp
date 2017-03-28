@@ -1,6 +1,7 @@
 #include <iostream>
-#include <stdlib.h>
-
+#include "Grid.h"
+#include "Device.h"
+#include "Slice.h"
 
 using std::cout;
 using std::endl;
@@ -10,24 +11,12 @@ using std::endl;
  \*---------------------------------------------------------------------*/
 
 /*--------------------------------------*\
- |*		Imported	 	*|
- \*-------------------------------------*/
-
-//extern bool useHello(void);
-//extern bool useAddVecteur(void);
-extern bool useSlice(void);
-
-/*--------------------------------------*\
  |*		Public			*|
  \*-------------------------------------*/
-
-int mainCore();
 
 /*--------------------------------------*\
  |*		Private			*|
  \*-------------------------------------*/
-
-
 
 /*----------------------------------------------------------------------*\
  |*			Implementation 					*|
@@ -37,24 +26,33 @@ int mainCore();
  |*		Public			*|
  \*-------------------------------------*/
 
-int mainCore()
+bool useSlice(){
+    int nbSlice = 9;
+
+    float* ptrResult = new float[1];
+
     {
-    bool isOk = true;
-   // isOk &= useHello();
-    //isOk &=useAddVecteur();
-    isOk &= useSlice();
+	int mp = Device::getMPCount();
+	int coreMP = 512;//nbThread par block
 
-    cout << "\nisOK = " << isOk << endl;
-    cout << "\nEnd : mainCore" << endl;
+	dim3 dg = dim3(mp,1,1);
+	dim3 db = dim3(coreMP,1,1);
+	Grid grid(dg, db);
 
-    return isOk ? EXIT_SUCCESS : EXIT_FAILURE;
+	Slice slice(grid, ptrResult, nbSlice);
+	slice.run();
+
     }
+
+    float result = *ptrResult;
+    cout<<result<<endl;
+
+    return true;
+}
 
 /*--------------------------------------*\
  |*		Private			*|
  \*-------------------------------------*/
-
-
 
 /*----------------------------------------------------------------------*\
  |*			End	 					*|
