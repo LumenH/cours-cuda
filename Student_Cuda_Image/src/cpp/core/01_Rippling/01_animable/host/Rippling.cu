@@ -39,7 +39,7 @@ extern __global__ void rippling(uchar4* ptrDevPixels,uint w, uint h,float t);
  \*-------------------------*/
 
 Rippling::Rippling(const Grid& grid, uint w, uint h, float dt) :
-	Animable_I<uchar4>(grid, w, h, "Rippling_Cuda_RGBA_uchar4")
+	Animable_I<uchar4>(grid, w, h, "Rippling_Cuda")
     {
     assert(w == h); // specific rippling
 
@@ -67,14 +67,14 @@ Rippling::~Rippling()
  */
 void Rippling::process(uchar4* ptrDevPixels, uint w, uint h, const DomaineMath& domaineMath)
     {
-    Device::lastCudaError("rippling rgba uchar4 (before kernel)"); // facultatif, for debug only, remove for release
+    //Device::lastCudaError("rippling rgba uchar4 (before kernel)"); // facultatif, for debug only, remove for release
 
     // TODO lancer le kernel avec <<<dg,db>>>
     // le kernel est importer ci-dessus (ligne 19)
 
     rippling<<<dg,db>>>(ptrDevPixels, w, h, t);
 
-    Device::lastCudaError("rippling rgba uchar4 (after kernel)"); // facultatif, for debug only, remove for release
+    //Device::lastCudaError("rippling rgba uchar4 (after kernel)"); // facultatif, for debug only, remove for release
     }
 
 /**
