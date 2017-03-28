@@ -15,7 +15,7 @@ class Slice
     {
     public:
 
-	Slice(const Grid& grid,float* ptrResult, int n);
+	Slice(const Grid& grid,float* ptrResult, int nbSlice);
 	virtual ~Slice(void);
 
 	void run();
@@ -24,11 +24,11 @@ class Slice
 	dim3 dg;
 	dim3 db;
 
-	int n;
+	int nbSlice;
 
 	float* ptrResult;
 	float* ptrDevResult;
-	size_t sizeOctet;
+	size_t sizeOctetGM;
 	size_t sizeOctetSM;
 
     };

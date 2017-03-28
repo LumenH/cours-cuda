@@ -4,23 +4,20 @@
 
 extern __global__ void slice(float* ptrDevRseult, int nbSlice);
 
-Slice::Slice(const Grid& grid,float* ptrResult, int n){
-    this->sizeOctet = sizeof(float);
+Slice::Slice(const Grid& grid,float* ptrResult, int nbSlice){
+
+    this->sizeOctetGM = sizeof(float);
+    this->sizeOctetSM = sizeof(float) * grid.db.x;
     this->ptrDevResult = NULL;
+    this->ptrResult = ptrResult;
+    this->nbSlice = nbSlice;
 
-    {
-	Device::malloc(&ptrDevResult, sizeOctet);
-	Device::memclear(ptrDevResult, sizeOctet);
-	Device::memcpyHToD(ptrDevResult, ptrResult, sizeOctet);
 
-    }
+    Device::malloc(&ptrDevResult, sizeOctetGM);
+    Device::memclear(ptrDevResult, sizeOctetGM);
 
-    {
     this->dg = grid.dg;
     this->db = grid.db;
-    }
-
-    this->sizeOctetSM = sizeof(float)*db.x;//taille de float * nbThread
 }
 
 Slice::~Slice(){
@@ -28,5 +25,6 @@ Slice::~Slice(){
 }
 
 void Slice::run(){
-    slice<<<dg, db, sizeOctetSM>>>(ptrDevResult, n);
+    slice<<<dg, db, sizeOctetSM>>>(ptrDevResult, nbSlice);
+    Device::memcpyDToH(ptrResult, ptrDevResult, sizeOctetGM);
 }

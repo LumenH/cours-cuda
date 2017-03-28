@@ -15,5 +15,5 @@ __global__ void slice(float* ptrDevResult, int nbSlice){
 
 static __device__ void reductionIntraThread(float* tabSM, int nbSlice){
     const int TID_Local = threadIdx.x;
-    tabSM[TID_Local] = 1; //On remplit de 1.
+    tabSM[TID_Local] = threadIdx.x + blockIdx.x*blockDim.x; //On remplit de 1.
 }

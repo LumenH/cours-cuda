@@ -17,6 +17,8 @@ extern __host__ void uploadGPU(Sphere* tabValue);
 extern __global__ void raytracingGM(uchar4* ptrDevPixels, uint w, uint h, float t, Sphere* ptrDevTabSphere, int nbSphere);
 extern __global__ void raytracingCM(uchar4* ptrDevPixels, uint w, uint h, float t, int nbSphere);
 extern __global__ void raytracingSM(uchar4* ptrDevPixels, uint w, uint h, float t, Sphere* ptrDevTabSphere, int nbSphere);
+
+
 Raytracing::Raytracing(const Grid& grid, uint w, uint h, float dt, int nbSphere): Animable_I<uchar4>(grid, w, h, "Raytracing_CUDA"){
     this->dt = dt;
     this->t = 0;

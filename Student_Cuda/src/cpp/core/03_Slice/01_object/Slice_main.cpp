@@ -27,25 +27,22 @@ using std::endl;
  \*-------------------------------------*/
 
 bool useSlice(){
-    int nbSlice = 9;
+    int nbSlice = 1000000;
 
-    float* ptrResult = new float[1];
+    float Result;
 
-    {
-	int mp = Device::getMPCount();
-	int coreMP = 512;//nbThread par block
+	int mp = 256;
 
 	dim3 dg = dim3(mp,1,1);
-	dim3 db = dim3(coreMP,1,1);
+	dim3 db = dim3(1024,1,1);
 	Grid grid(dg, db);
 
-	Slice slice(grid, ptrResult, nbSlice);
+	Slice slice(grid, &Result, nbSlice);
 	slice.run();
 
-    }
-
-    float result = *ptrResult;
-    cout<<result<<endl;
+    dim3 n = dg*db;
+    cout<<Result<<endl;
+    cout<<(n*(n+1))/2;
 
     return true;
 }
