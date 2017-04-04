@@ -1,5 +1,6 @@
 #include "Montecarlo.h"
 #include "Device.h"
+#include <curand_kernel.h>
 
 /*----------------------------------------------------------------------*\
  |*			Declaration 					*|
@@ -9,7 +10,7 @@
  |*		Public			*|
  \*-------------------------------------*/
 
-extern __global__ void montecarlo(float* ptrDevResult, curandState* ptrTabDevGenerator, int nbFlechette);
+extern __global__ void montecarlo(int* ptrDevResult, curandState* ptrTabDevGenerator, int nbFlechette);
 extern __global__ void setup_kernel_rand(curandState* ptrTabDevGenerator, int deviceId);
 /*--------------------------------------*\
  |*		Private			*|
@@ -23,14 +24,18 @@ extern __global__ void setup_kernel_rand(curandState* ptrTabDevGenerator, int de
  |*		Public			*|
  \*-------------------------------------*/
 
-Montecarlo::Montecarlo(const &Grid grid, float* ptrResult, int nbFlechette){
-    this->sizeOctetGM = sizeof(float);
-    this->sizeOctetSM = sizeof(float) * nbFlechette;//grid.db.x;
+Montecarlo::Montecarlo(const Grid& grid,int nbFlechette){
+    this->sizeOctetGM = sizeof(int);
+    this->sizeOctetSM = sizeof(int) * grid.db.x;
     this->sizeOctetGeneratorGM = sizeof(curandState) * grid.threadCounts();
 
-    this->ptrDevResult = NULL;
-    this->ptrResult = ptrResult;
+    this->result = 0;
+    this->nbFlechetteDessous = 0;
     this->nbFlechette = nbFlechette;
+
+    this->ptrDevResult = NULL;
+    this->ptrTabDevGenerator = NULL;
+
     this->dg = grid.dg;
     this->db = grid.db;
 
@@ -43,8 +48,6 @@ Montecarlo::Montecarlo(const &Grid grid, float* ptrResult, int nbFlechette){
     int deviceId = Device::getDeviceId();
 
     setup_kernel_rand<<<dg, db>>>(ptrTabDevGenerator, deviceId);//a check pour ce qui est entre les triples chevrons
-
-
 }
 
 Montecarlo::~Montecarlo(void){
@@ -53,8 +56,13 @@ Montecarlo::~Montecarlo(void){
 }
 
 void Montecarlo::run(){
-    montecarlo<<<dg, db, sizeOctetSM>>(ptrDevResult, ptrTabDevGenerator, nbFlechette);
-    Device::memcpyHToD(ptrDevResult, ptrResult, sizeOctetGM);
+    montecarlo<<<dg, db, sizeOctetSM>>>(ptrDevResult, ptrTabDevGenerator, nbFlechette);
+    Device::memcpyDToH(&nbFlechetteDessous, ptrDevResult, sizeOctetGM);
+    this->result = (float) nbFlechetteDessous;
+}
+
+float Montecarlo::getResult(){
+    return this->result;
 }
 
 /*--------------------------------------*\

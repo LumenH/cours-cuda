@@ -2,6 +2,8 @@
 
 #include "cudaTools.h"
 #include "Grid.h"
+#include <curand_kernel.h>
+
 
 
 /*----------------------------------------------------------------------*\
@@ -14,18 +16,20 @@
 class Montecarlo{
 
     public :
-	Montecarlo(const Grid& grid, float* ptrResult, int nbFlechette);
+	Montecarlo(const Grid& grid, int nbFlechette);
 	virtual ~Montecarlo(void);
 
 	void run();
+	float getResult();
 
     private:
 	dim3 dg, db;
 
 	int nbFlechette;
 
-	float* ptrResult;
-	float* ptrDevResult;
+	int nbFlechetteDessous;
+	float result;
+	int* ptrDevResult;
 
 	size_t sizeOctetGM;
 	size_t sizeOctetSM;

@@ -1,4 +1,10 @@
+#include <iostream>
+#include "Grid.h"
+#include "Device.h"
+#include "Montecarlo.h"
 
+using std::cout;
+using std::endl;
 
 /*----------------------------------------------------------------------*\
  |*			Declaration 					*|
@@ -19,6 +25,25 @@
 /*--------------------------------------*\
  |*		Public			*|
  \*-------------------------------------*/
+
+bool useMontecarlo(){
+    int nbFlechette = 100000;
+    float result;
+
+    int mp = 256;
+
+    dim3 dg = dim3(mp, 1, 1);
+    dim3 db = dim3(1024, 1, 1);
+    Grid grid(dg, db);
+
+    Montecarlo montecarlo(grid, nbFlechette);
+    montecarlo.run();
+
+    result = montecarlo.getResult();
+    cout<<result<<endl;
+
+    return true;
+}
 
 /*--------------------------------------*\
  |*		Private			*|
