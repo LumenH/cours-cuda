@@ -11,7 +11,7 @@
  |*		Public			*|
  \*-------------------------------------*/
 __global__ void setup_kernel_rand(curandState* ptrTabDevGenerator, int deviceId);
-static __device__ void reductionIntraThread(int* tabSM, int nbFlechette);
+static __device__ void reductionIntraThread(int* tabSM, int nbFlechette, curandState* ptrTabDevGenerator);
 __global__ void montecarlo(int* ptrDevResult, curandState* ptrTabDevGenerator, int nbFlechette);
 /*--------------------------------------*\
  |*		Private			*|
@@ -27,14 +27,31 @@ __global__ void montecarlo(int* ptrDevResult, curandState* ptrTabDevGenerator, i
 
 __global__ void montecarlo(int* ptrDevResult, curandState* ptrTabDevGenerator, int nbFlechette){
     __shared__ extern int tabSM[];
-    reductionIntraThread(tabSM, nbFlechette);
+    reductionIntraThread(tabSM, nbFlechette, ptrTabDevGenerator);
     __syncthreads();//barrière pour les threads d'un même bloc
     reductionADD<int>(tabSM, ptrDevResult);//méthode générique
 }
 
-static __device__ void reductionIntraThread(int* tabSM, int nbFlechette){
+static __device__ void reductionIntraThread(int* tabSM, int nbFlechette, curandState* ptrTabDevGenerator){
     //const int TID_Local = threadIdx.x;
     //tabSM[TID_Local] = 1;
+    const int TID = Indice1D::tid();
+
+    curandState localGenerator = ptrTabDevGenerator[TID];
+
+    float xAlea, yAlea;
+
+    for(long i = 1; i <= nbFlechette; i++){
+	xAlea = curand_uniform(&localGenerator);
+	yAlea = curand_uniform(&localGenerator);
+	work(xAlea, yAlea);
+    }
+
+    ptrTabDevGenerator[TID] = localGenerator;
+}
+
+void work(xAlea, yAlea){
+
 }
 
 __global__ void setup_kernel_rand(curandState* ptrTabDevGenerator, int deviceId)
