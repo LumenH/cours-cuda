@@ -31,18 +31,16 @@ bool useSlice(){
 
     float Result;
 
-	int mp = 256;
+    int mp = 256;
 
-	dim3 dg = dim3(mp,1,1);
-	dim3 db = dim3(1024,1,1);
-	Grid grid(dg, db);
+    dim3 dg = dim3(mp,1,1);
+    dim3 db = dim3(1024,1,1);
+    Grid grid(dg, db);
 
-	Slice slice(grid, &Result, nbSlice);
-	slice.run();
+    Slice slice(grid, &Result, nbSlice);
+    slice.run();
 
-    dim3 n = dg*db;
     cout<<Result<<endl;
-    cout<<(n*(n+1))/2;
 
     return true;
 }
