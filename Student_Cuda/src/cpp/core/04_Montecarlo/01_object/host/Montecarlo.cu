@@ -61,8 +61,8 @@ void Montecarlo::run(){
     this->result = (float) nbFlechetteDessous;
 }
 
-float Montecarlo::getResult(int m){
-    return (this->result/(float)this->nbFlechette)*(float)m;
+float Montecarlo::getResult(){
+    return (this->result/(float)this->nbFlechette)*(float)this->m;
 }
 
 /*--------------------------------------*\

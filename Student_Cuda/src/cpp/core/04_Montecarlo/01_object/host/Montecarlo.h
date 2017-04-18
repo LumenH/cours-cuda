@@ -20,12 +20,14 @@ class Montecarlo{
 	virtual ~Montecarlo(void);
 
 	void run();
-	float getResult(int m);
+	float getResult();
 
     private:
 	dim3 dg, db;
 
 	int nbFlechette;
+
+	int m;
 
 	int nbFlechetteDessous;
 	float result;
