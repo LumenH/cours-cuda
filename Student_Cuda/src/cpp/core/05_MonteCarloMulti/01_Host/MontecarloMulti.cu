@@ -42,7 +42,7 @@ MontecarloMulti::MontecarloMulti(const Grid& grid,int nbFlechette){
 
     this->a = (float) -1;
     this->b = (float) 1;
-    this->M = 100;
+    this->M = 1.0f;
 
     Device::malloc(&ptrDevResult, sizeOctetGM);
     Device::memclear(ptrDevResult, sizeOctetGM);
@@ -63,11 +63,14 @@ MontecarloMulti::~MontecarloMulti(void){
 void MontecarloMulti::run(){
     montecarlo<<<dg, db, sizeOctetSM>>>(ptrDevResult, ptrTabDevGenerator, nbFlechette, a, b, M);
     Device::memcpyDToH(&nbFlechetteDessous, ptrDevResult, sizeOctetGM);
-    this->result = (float) nbFlechetteDessous;
+    float delta = fabsf(b-a);
+    float area = M*delta;
+    float ratio = (float)nbFlechetteDessous/(float)nbFlechette;
+    this->result = 2*area*ratio;
 }
 
-float MontecarloMulti::getResult(int m){
-    return (this->result/(float)this->nbFlechette)*(float)m;
+float MontecarloMulti::getResult(){
+    return this->result;
 }
 
 int MontecarloMulti::getNbFlechette(){

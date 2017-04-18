@@ -27,11 +27,10 @@ using std::endl;
  \*-------------------------------------*/
 
 bool useMontecarloMulti(){
-    int nbFlechette = 100000;
+    int nbFlechette = INT_MAX/10;
     float result;
-    int m = 10;
 
-    int mp = 256;
+    int mp = 64;
 
     dim3 dg = dim3(mp, 1, 1);
     dim3 db = dim3(1024, 1, 1);

@@ -6,7 +6,7 @@ MontecarloMultiGPU::MontecarloMultiGPU(const Grid& grid, const int nbFlechetteTo
     this->nbDevice = Device::getDeviceCount();
     this->grid = grid;
     this->nbFlechetteTotale = nbFlechetteTotale;
-    this->result = 100;
+    this->result = 0;
 }
 
 void MontecarloMultiGPU::runMulti(){
@@ -21,7 +21,12 @@ void MontecarloMultiGPU::runMulti(){
 	montecarlomulti.run();
 	sumTotal += montecarlomulti.getNbFlechette();
     }
- //il manque les formules de finition
+
+    //this->result = sumTotal;
+    float delta = fabsf(-1.0f-1.0f);
+    float area = 1.0f*delta;
+    float ratio = (float)sumTotal/(float)nbFlechetteTotale;
+    this->result = 2*area*ratio;
 }
 
 float MontecarloMultiGPU::getResult(){
