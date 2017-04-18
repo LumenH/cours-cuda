@@ -11,9 +11,10 @@
  |*		Public			*|
  \*-------------------------------------*/
 __global__ void setup_kernel_rand(curandState* ptrTabDevGenerator, int deviceId);
-static __device__ void reductionIntraThread(int* tabSM, int nbFlechette, curandState* ptrTabDevGenerator);
+static __device__ void reductionIntraThread(int* tabSM, int nbFlechette, curandState* ptrTabDevGenerator, float a, float b, float M);
 __global__ void montecarlo(int* ptrDevResult, curandState* ptrTabDevGenerator, int nbFlechette, float a, float b, float M);
 __device__ int work(float xAlea, float yAlea);
+__device__ float toAB(float x, float a, float b);
 /*--------------------------------------*\
  |*		Private			*|
  \*-------------------------------------*/
@@ -33,6 +34,14 @@ __global__ void montecarlo(int* ptrDevResult, curandState* ptrTabDevGenerator, i
     reductionADD<int>(tabSM, ptrDevResult);//méthode générique
 }
 
+__device__ float toAB(float x, float a, float b){
+    return (b - a) / 1.0f * x + a;
+}
+
+__device__ float f(float x){
+    return sqrtf(1.0f - x * x);
+}
+
 static __device__ void reductionIntraThread(int* tabSM, int nbFlechette, curandState* ptrTabDevGenerator, float a, float b, float M){
     const int TID_Local = Indice1D::tidLocal();
     //tabSM[TID_Local] = 1;
@@ -47,21 +56,15 @@ static __device__ void reductionIntraThread(int* tabSM, int nbFlechette, curandS
     for(long i = 1; i <= nbFlechette; i++){
 	xAlea = toAB(curand_uniform(&localGenerator), a, b);
 	yAlea = toAB(curand_uniform(&localGenerator), a, b);
-	n += work(xAlea, yAlea);
-	/*y = work(xAlea, yAlea);
-
-	if(y < yAlea){
+	if(yAlea < f(xAlea)){
 	    n++;
-	}*/
+	}
     }
 
     tabSM[TID_Local]=n;
     ptrTabDevGenerator[TID] = localGenerator;
 }
 
-__device__ float toAB(float x, float a, float b){
-    return (b - a) / 1.0f * x + a;
-}
 
 __device__ int work(float xAlea, float yAlea){
     float fPi = (1.0 /(1.0 +xAlea*xAlea))*4;

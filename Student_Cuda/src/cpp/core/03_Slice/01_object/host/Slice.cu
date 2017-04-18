@@ -12,7 +12,6 @@ Slice::Slice(const Grid& grid,float* ptrResult, int nbSlice){
     this->ptrResult = ptrResult;
     this->nbSlice = nbSlice;
 
-
     Device::malloc(&ptrDevResult, sizeOctetGM);
     Device::memclear(ptrDevResult, sizeOctetGM);
 

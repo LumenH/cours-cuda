@@ -1,4 +1,5 @@
-#include "Montecarlo.h"
+#include "MontecarloMulti.h"
+
 #include "Device.h"
 #include <curand_kernel.h>
 
@@ -24,7 +25,7 @@ extern __global__ void setup_kernel_rand(curandState* ptrTabDevGenerator, int de
  |*		Public			*|
  \*-------------------------------------*/
 
-Montecarlo::Montecarlo(const Grid& grid,int nbFlechette){
+MontecarloMulti::MontecarloMulti(const Grid& grid,int nbFlechette){
     this->sizeOctetGM = sizeof(int);
     this->sizeOctetSM = sizeof(int) * grid.db.x;
     this->sizeOctetGeneratorGM = sizeof(curandState) * grid.threadCounts();
@@ -38,9 +39,10 @@ Montecarlo::Montecarlo(const Grid& grid,int nbFlechette){
 
     this->dg = grid.dg;
     this->db = grid.db;
-    this->M = 1;
+
     this->a = (float) -1;
     this->b = (float) 1;
+    this->M = 100;
 
     Device::malloc(&ptrDevResult, sizeOctetGM);
     Device::memclear(ptrDevResult, sizeOctetGM);
@@ -53,23 +55,25 @@ Montecarlo::Montecarlo(const Grid& grid,int nbFlechette){
     setup_kernel_rand<<<dg, db>>>(ptrTabDevGenerator, deviceId);//a check pour ce qui est entre les triples chevrons
 }
 
-Montecarlo::~Montecarlo(void){
+MontecarloMulti::~MontecarloMulti(void){
     Device::free(ptrDevResult);
     Device::free(ptrTabDevGenerator);
 }
 
-void Montecarlo::run(){
+void MontecarloMulti::run(){
     montecarlo<<<dg, db, sizeOctetSM>>>(ptrDevResult, ptrTabDevGenerator, nbFlechette, a, b, M);
     Device::memcpyDToH(&nbFlechetteDessous, ptrDevResult, sizeOctetGM);
-    float delta = fabs(b-a);
-    float area = M*delta;
-    float ratio = nbFlechetteDessous/nbFlechette;
-    this->result = 2*area*ratio;
+    this->result = (float) nbFlechetteDessous;
 }
 
-float Montecarlo::getResult(){
-    return this->result;
+float MontecarloMulti::getResult(int m){
+    return (this->result/(float)this->nbFlechette)*(float)m;
 }
+
+int MontecarloMulti::getNbFlechette(){
+    return this->nbFlechetteDessous;
+}
+
 
 /*--------------------------------------*\
  |*		Private			*|

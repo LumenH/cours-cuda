@@ -24,6 +24,7 @@ Raytracing::Raytracing(const Grid& grid, uint w, uint h, float dt, int nbSphere)
     this->t = 0;
     this->nbSphere = nbSphere;
 
+
     SphereCreator sphereCreator(nbSphere, w, h);
     Sphere* ptrTabSphere = sphereCreator.getTabSphere();
 

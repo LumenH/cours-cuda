@@ -1,10 +1,6 @@
 #pragma once
 
-#include "cudaTools.h"
 #include "Grid.h"
-#include <curand_kernel.h>
-
-
 
 /*----------------------------------------------------------------------*\
  |*			Declaration 					*|
@@ -13,34 +9,21 @@
 /*--------------------------------------*\
  |*		Public			*|
  \*-------------------------------------*/
-class Montecarlo{
 
-    public :
-	Montecarlo(const Grid& grid, int nbFlechette);
-	virtual ~Montecarlo(void);
-
-	void run();
+class MontecarloMultiGPU{
+    public:
+	MontecarloMultiGPU(const Grid& grid, const int nbFlechetteTotale);
+	virtual ~MontecarloMultiGPU(){};
+	void runMulti();
 	float getResult();
 
     private:
-	dim3 dg, db;
-
-	int nbFlechette;
-
-	int M;
-	float a, b;
-
-	int nbFlechetteDessous;
+	int nbDevice;
+	Grid grid;
+	int nbFlechetteTotale;
 	float result;
-	int* ptrDevResult;
 
-	size_t sizeOctetGM;
-	size_t sizeOctetSM;
-	size_t sizeOctetGeneratorGM;
-
-	curandState* ptrTabDevGenerator;
 };
-
 
 
 /*----------------------------------------------------------------------*\

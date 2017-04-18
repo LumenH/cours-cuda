@@ -13,25 +13,24 @@
 /*--------------------------------------*\
  |*		Public			*|
  \*-------------------------------------*/
-class Montecarlo{
+class MontecarloMulti{
 
     public :
-	Montecarlo(const Grid& grid, int nbFlechette);
-	virtual ~Montecarlo(void);
+	MontecarloMulti(const Grid& grid, int nbFlechette);
+	virtual ~MontecarloMulti(void);
 
 	void run();
-	float getResult();
+	float getResult(int m);
+	int getNbFlechette();
 
     private:
 	dim3 dg, db;
 
 	int nbFlechette;
 
-	int M;
-	float a, b;
-
 	int nbFlechetteDessous;
-	float result;
+	float result, a, b;
+	int M;
 	int* ptrDevResult;
 
 	size_t sizeOctetGM;
