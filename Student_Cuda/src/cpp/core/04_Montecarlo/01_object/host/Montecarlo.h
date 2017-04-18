@@ -27,7 +27,7 @@ class Montecarlo{
 
 	int nbFlechette;
 
-	int M;
+	float M;
 	float a, b;
 
 	int nbFlechetteDessous;
