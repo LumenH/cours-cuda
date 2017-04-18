@@ -20,7 +20,7 @@ class Montecarlo{
 	virtual ~Montecarlo(void);
 
 	void run();
-	float getResult();
+	float getResult(int m);
 
     private:
 	dim3 dg, db;

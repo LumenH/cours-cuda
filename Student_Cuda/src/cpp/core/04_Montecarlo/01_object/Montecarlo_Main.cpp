@@ -27,8 +27,9 @@ using std::endl;
  \*-------------------------------------*/
 
 bool useMontecarlo(){
-    int nbFlechette = 100000;
+    int nbFlechette = 1000000;
     float result;
+    int m = 10;
 
     int mp = 256;
 
@@ -39,7 +40,7 @@ bool useMontecarlo(){
     Montecarlo montecarlo(grid, nbFlechette);
     montecarlo.run();
 
-    result = montecarlo.getResult();
+    result = montecarlo.getResult(m);
     cout<<result<<endl;
 
     return true;
