@@ -10,7 +10,7 @@
  |*		Public			*|
  \*-------------------------------------*/
 
-extern __global__ void montecarlo(int* ptrDevResult, curandState* ptrTabDevGenerator, int nbFlechette);
+extern __global__ void montecarlo(int* ptrDevResult, curandState* ptrTabDevGenerator, int nbFlechette, float a, float b, float M)
 extern __global__ void setup_kernel_rand(curandState* ptrTabDevGenerator, int deviceId);
 /*--------------------------------------*\
  |*		Private			*|
@@ -56,7 +56,7 @@ Montecarlo::~Montecarlo(void){
 }
 
 void Montecarlo::run(){
-    montecarlo<<<dg, db, sizeOctetSM>>>(ptrDevResult, ptrTabDevGenerator, nbFlechette);
+    montecarlo<<<dg, db, sizeOctetSM>>>(ptrDevResult, ptrTabDevGenerator, nbFlechette, a, b, M);
     Device::memcpyDToH(&nbFlechetteDessous, ptrDevResult, sizeOctetGM);
     this->result = (float) nbFlechetteDessous;
 }

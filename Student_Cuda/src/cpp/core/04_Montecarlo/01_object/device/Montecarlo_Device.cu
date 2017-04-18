@@ -12,7 +12,7 @@
  \*-------------------------------------*/
 __global__ void setup_kernel_rand(curandState* ptrTabDevGenerator, int deviceId);
 static __device__ void reductionIntraThread(int* tabSM, int nbFlechette, curandState* ptrTabDevGenerator);
-__global__ void montecarlo(int* ptrDevResult, curandState* ptrTabDevGenerator, int nbFlechette);
+__global__ void montecarlo(int* ptrDevResult, curandState* ptrTabDevGenerator, int nbFlechette, float a, float b, float M);
 __device__ int work(float xAlea, float yAlea);
 /*--------------------------------------*\
  |*		Private			*|
@@ -26,14 +26,14 @@ __device__ int work(float xAlea, float yAlea);
  |*		Public			*|
  \*-------------------------------------*/
 
-__global__ void montecarlo(int* ptrDevResult, curandState* ptrTabDevGenerator, int nbFlechette){
+__global__ void montecarlo(int* ptrDevResult, curandState* ptrTabDevGenerator, int nbFlechette, float a, float b, float M){
     __shared__ extern int tabSM[];
-    reductionIntraThread(tabSM, nbFlechette, ptrTabDevGenerator);
+    reductionIntraThread(tabSM, nbFlechette, ptrTabDevGenerator, a, b, M);
     __syncthreads();//barrière pour les threads d'un même bloc
     reductionADD<int>(tabSM, ptrDevResult);//méthode générique
 }
 
-static __device__ void reductionIntraThread(int* tabSM, int nbFlechette, curandState* ptrTabDevGenerator){
+static __device__ void reductionIntraThread(int* tabSM, int nbFlechette, curandState* ptrTabDevGenerator, float a, float b, float M){
     const int TID_Local = Indice1D::tidLocal();
     //tabSM[TID_Local] = 1;
     const int TID = Indice1D::tid();
@@ -41,12 +41,12 @@ static __device__ void reductionIntraThread(int* tabSM, int nbFlechette, curandS
     curandState localGenerator = ptrTabDevGenerator[TID];
 
     float xAlea, yAlea;
-    float y;
+    //float y;
     int n = 0;
 
     for(long i = 1; i <= nbFlechette; i++){
-	xAlea = curand_uniform(&localGenerator);
-	yAlea = curand_uniform(&localGenerator);
+	xAlea = toAB(curand_uniform(&localGenerator), a, b);
+	yAlea = toAB(curand_uniform(&localGenerator), a, b);
 	n += work(xAlea, yAlea);
 	/*y = work(xAlea, yAlea);
 
@@ -57,6 +57,10 @@ static __device__ void reductionIntraThread(int* tabSM, int nbFlechette, curandS
 
     tabSM[TID_Local]=n;
     ptrTabDevGenerator[TID] = localGenerator;
+}
+
+__device__ float toAB(float x, float a, float b){
+    return (b - a) / 1.0f * x + a;
 }
 
 __device__ int work(float xAlea, float yAlea){
