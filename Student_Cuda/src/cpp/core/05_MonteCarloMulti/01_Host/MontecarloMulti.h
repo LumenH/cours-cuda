@@ -20,7 +20,7 @@ class MontecarloMulti{
 	virtual ~MontecarloMulti(void);
 
 	void run();
-	float getResult(int m);
+	float getResult();
 	int getNbFlechette();
 
     private:
@@ -30,7 +30,7 @@ class MontecarloMulti{
 
 	int nbFlechetteDessous;
 	float result, a, b;
-	int M;
+	float M;
 	int* ptrDevResult;
 
 	size_t sizeOctetGM;
