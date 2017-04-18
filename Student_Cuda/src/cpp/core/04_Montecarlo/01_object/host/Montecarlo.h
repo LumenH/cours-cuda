@@ -24,10 +24,9 @@ class Montecarlo{
 
     private:
 	dim3 dg, db;
-
 	int nbFlechette;
 
-	int M;
+	float M;
 	float a, b;
 
 	int nbFlechetteDessous;

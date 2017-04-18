@@ -38,7 +38,7 @@ Montecarlo::Montecarlo(const Grid& grid,int nbFlechette){
 
     this->dg = grid.dg;
     this->db = grid.db;
-    this->M = 1;
+    this->M = (float)1;
     this->a = (float) -1;
     this->b = (float) 1;
 
