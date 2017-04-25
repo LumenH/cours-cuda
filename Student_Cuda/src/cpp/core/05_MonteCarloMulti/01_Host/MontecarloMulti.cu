@@ -52,6 +52,8 @@ MontecarloMulti::MontecarloMulti(const Grid& grid,int nbFlechette){
 
     int deviceId = Device::getDeviceId();
 
+    Device::printCurrent();
+
     setup_kernel_rand<<<dg, db>>>(ptrTabDevGenerator, deviceId);//a check pour ce qui est entre les triples chevrons
 }
 
@@ -61,6 +63,7 @@ MontecarloMulti::~MontecarloMulti(void){
 }
 
 void MontecarloMulti::run(){
+   // Device::printCurrent();
     montecarlo<<<dg, db, sizeOctetSM>>>(ptrDevResult, ptrTabDevGenerator, nbFlechette, a, b, M);
     Device::memcpyDToH(&nbFlechetteDessous, ptrDevResult, sizeOctetGM);
     float delta = fabsf(b-a);
