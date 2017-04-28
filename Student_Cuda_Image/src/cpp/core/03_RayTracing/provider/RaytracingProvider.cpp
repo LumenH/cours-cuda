@@ -8,7 +8,7 @@
 using namespace gpu;
 
 Animable_I<uchar4>* RaytracingProvider::createAnimable(){
-    int nbSphere = 20;
+    int nbSphere = 25;
 
     //Peut animation
     int dw = 16*60;

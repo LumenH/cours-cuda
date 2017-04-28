@@ -1,6 +1,7 @@
 #include <iostream>
-#include <stdlib.h>
-
+#include "Grid.h"
+#include "Device.h"
+#include "Slice.h"
 
 using std::cout;
 using std::endl;
@@ -10,28 +11,12 @@ using std::endl;
  \*---------------------------------------------------------------------*/
 
 /*--------------------------------------*\
- |*		Imported	 	*|
- \*-------------------------------------*/
-
-//extern bool useHello(void);
-//extern bool useAddVecteur(void);
-//extern bool useSlice(void);
-//extern bool useMontecarlo(void);
-extern bool useMontecarloMulti(void);
-//extern bool useHistogramme();
-
-
-/*--------------------------------------*\
  |*		Public			*|
  \*-------------------------------------*/
-
-int mainCore();
 
 /*--------------------------------------*\
  |*		Private			*|
  \*-------------------------------------*/
-
-
 
 /*----------------------------------------------------------------------*\
  |*			Implementation 					*|
@@ -41,27 +26,28 @@ int mainCore();
  |*		Public			*|
  \*-------------------------------------*/
 
-int mainCore()
-    {
-    bool isOk = true;
-   // isOk &= useHello();
-    //isOk &=useAddVecteur();
-    //isOk &= useSlice();
-    //isOk &= useMontecarlo();
-    isOk &= useMontecarloMulti();
-    //isOk &= useHistogramme();
+bool useSlice(){
+    int nbSlice = 1000000;
 
-    cout << "\nisOK = " << isOk << endl;
-    cout << "\nEnd : mainCore" << endl;
+    float Result;
 
-    return isOk ? EXIT_SUCCESS : EXIT_FAILURE;
-    }
+    int mp = 256;
+
+    dim3 dg = dim3(mp,1,1);
+    dim3 db = dim3(1024,1,1);
+    Grid grid(dg, db);
+
+    Slice slice(grid, &Result, nbSlice);
+    slice.run();
+
+    cout<<Result<<endl;
+
+    return true;
+}
 
 /*--------------------------------------*\
  |*		Private			*|
  \*-------------------------------------*/
-
-
 
 /*----------------------------------------------------------------------*\
  |*			End	 					*|
