@@ -39,9 +39,15 @@ Montecarlo::Montecarlo(const Grid& grid,int nbFlechette){
     this->dg = grid.dg;
     this->db = grid.db;
 
+<<<<<<< HEAD
     this->M = (float)1;
     this->a = (float) -1;
     this->b = (float) 1;
+=======
+    this->M = 1.0f;
+    this->a = -1.0f;
+    this->b = 1.0f;
+>>>>>>> 1593fa2f5fb234a03d52fef245de8c8738ec5fac
 
     Device::malloc(&ptrDevResult, sizeOctetGM);
     Device::memclear(ptrDevResult, sizeOctetGM);
